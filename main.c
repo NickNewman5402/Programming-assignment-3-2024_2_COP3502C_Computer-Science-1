@@ -1,3 +1,10 @@
+/*
+Nick Newman
+7/3/24
+Comp Sci 1 
+Dr. Tanvir Ahmed 
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -57,4 +64,4 @@ int main(void) {
 
 
     return 0;
-}
+} 
