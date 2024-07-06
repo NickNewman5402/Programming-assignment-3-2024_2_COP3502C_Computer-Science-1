@@ -2,8 +2,8 @@
 Nick Newman
 5295926
 7/3/24
-Comp Sci 1 
-Dr. Tanvir Ahmed 
+Comp Sci 1
+Dr. Tanvir Ahmed
 */
 
 #include <stdio.h>
@@ -29,7 +29,7 @@ void calcDistancesPerm(StoreData*, int*, int, float*);
 
 void displayStores(StoreData* store, int n) {
     for (int i = 0; i < n; i++)
-         printf("\n\nStore name: %s\nx: %d\ny: %d\n\n", store[i].storeName, store[i].x, store[i].y);
+        printf("\n\nStore name: %s\nx: %d\ny: %d\n\n", store[i].storeName, store[i].x, store[i].y);
 }
 
 void displayDist(float* distArry, int n) {
@@ -37,34 +37,34 @@ void displayDist(float* distArry, int n) {
         printf("\n\nDistance from store %d to store %d: %f\n\n", i, i + 1, distArry[i]);
 }
 
-void displayPerms(int* permArry, int n){
-    for(int i = 0; i<n; i++)
+void displayPerms(int* permArry, int n) {
+    for (int i = 0; i < n; i++)
         printf("%d ", permArry[i]);
-        printf("\n");
+    printf("\n");
 }
 
-void findPerms(int* perm, int* used, int k, int n, StoreData* store, float* testDistance){
+void findPerms(int* perm, int* used, int k, int n, StoreData* store, float* testDistance) {
 
-    if (k==n){
-        
+    if (k == n) {
+
         float curDistance = 0;
-        for(int i = 0; i < n; i += 2){
-            curDistance += sqrt(pow(store[perm[i+1]].x - store[perm[i]].x, 2) + pow(store[perm[i+1]].y - store[perm[i]].y, 2));
+        for (int i = 0; i < n; i += 2) {
+            curDistance += sqrt(pow(store[perm[i + 1]].x - store[perm[i]].x, 2) + pow(store[perm[i + 1]].y - store[perm[i]].y, 2));
         }
 
-        if(curDistance < *testDistance){
-        //displayPerms(perm, n);
-        calcDistancesPerm(store, perm, n, testDistance);
+        if (curDistance < *testDistance) {
+            //displayPerms(perm, n);
+            calcDistancesPerm(store, perm, n, testDistance);
         }
-        
+
         return;
     }
     int i;
-    for(i = 0; i < n; i++){
-        if(!used[i]){
+    for (i = 0; i < n; i++) {
+        if (!used[i]) {
             used[i] = 1;
             perm[k] = i;
-            findPerms(perm, used, k+1, n, store, testDistance);
+            findPerms(perm, used, k + 1, n, store, testDistance);
             used[i] = 0;
         }
     }
@@ -74,31 +74,32 @@ void calcDistances(StoreData* store, int n, int combos) {
     // testDistance = sqrt((store[i+1].x - store[i].x)^2 + (store[i + 1].y - store[i].y)^2)
     float* distArry = calloc(sizeof(float), combos);
     for (int i = 0; i < n; i++)
-        for(int j = 1; j < n; j++)
-        distArry[i] = sqrt(pow(store[j].x - store[i].x, 2) + pow(store[j].y - store[i].y, 2));
+        for (int j = 1; j < n; j++)
+            distArry[i] = sqrt(pow(store[j].x - store[i].x, 2) + pow(store[j].y - store[i].y, 2));
 
     displayDist(distArry, combos);
 }
 
-void calcDistancesPerm(StoreData* store, int* perm, int n,float* testDistance){
+void calcDistancesPerm(StoreData* store, int* perm, int n, float* testDistance) {
 
     //float* distArry = calloc(sizeof(float*), n);
-    
+
 
     float curDistance = 0, storeDistance = 0;
 
-    for(int i = 0; i < n; i += 2){
-        curDistance += sqrt(pow(store[perm[i+1]].x - store[perm[i]].x, 2) + pow(store[perm[i+1]].y - store[perm[i]].y, 2));
+    for (int i = 0; i < n; i += 2) {
+        curDistance += sqrt(pow(store[perm[i + 1]].x - store[perm[i]].x, 2) + pow(store[perm[i + 1]].y - store[perm[i]].y, 2));
     }
 
-    if(curDistance < *testDistance){
-    printf("\n%0.3f", curDistance);
-    for(int i = 0; i < n; i += 2){
-        storeDistance = sqrt(pow(store[perm[i+1]].x - store[perm[i]].x, 2) + pow(store[perm[i+1]].y - store[perm[i]].y, 2));
+    if (curDistance < *testDistance) {
+        printf("%0.3f", curDistance);
+        for (int i = 0; i < n; i += 2) {
+            storeDistance = sqrt(pow(store[perm[i + 1]].x - store[perm[i]].x, 2) + pow(store[perm[i + 1]].y - store[perm[i]].y, 2));
 
-        printf("\n(%s, %s, %0.3f)", store[perm[i]].storeName, store[perm[i+1]].storeName, storeDistance);
-        *testDistance = curDistance;
-    }
+            printf("\n(%s, %s, %0.3f)", store[perm[i]].storeName, store[perm[i + 1]].storeName, storeDistance);
+            *testDistance = curDistance;
+        }
+        printf("\n");
     }
 
 }
@@ -108,8 +109,8 @@ int main(void) {
 
     int nRoads, nStores, testCases, combinations;
     float* testDistance = malloc(sizeof(float));
-    
-    
+
+
     scanf("%d", &testCases);
 
 
@@ -131,10 +132,10 @@ int main(void) {
 
         int* perm = calloc(sizeof(int), nStores);
         int* used = calloc(sizeof(int), nStores);
-        
+
         *testDistance = MAX_DISTANCE;
         findPerms(perm, used, 0, nStores, store, testDistance);
-        
+
         //calcDistances(store, nStores, combinations); // to calculate the testDistance between each store and the other stores
 
     }
@@ -142,4 +143,4 @@ int main(void) {
 
 
     return 0;
-} 
+}
