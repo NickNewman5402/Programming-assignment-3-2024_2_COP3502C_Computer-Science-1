@@ -94,8 +94,13 @@ int main(void) {
         calcDistancesPerm(store, bestPerm, nStores, *testDistance);
 
 
+        free(store);
+        free(perm);
+        free(used);
+        free(bestPerm);
     }
 
+    free(testDistance);
 
 
     return 0;
