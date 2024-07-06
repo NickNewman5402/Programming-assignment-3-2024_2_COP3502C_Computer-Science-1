@@ -18,30 +18,11 @@ typedef struct StoreData {
 }StoreData;
 
 /* FUNCTION PROTOTYPES */
-//void displayStores(StoreData*, int);
-//void displayDist(float*, int);
-//void displayPerms(int*, int);
 void findPerms(int*, int*, int, int, StoreData*, float*, int*);
-//void calcDistances(StoreData*, int, int);
 void calcDistancesPerm(StoreData*, int*, int, float);
 
 
 
-/*void displayStores(StoreData* store, int n) {
-    for (int i = 0; i < n; i++)
-        printf("\n\nStore name: %s\nx: %d\ny: %d\n\n", store[i].storeName, store[i].x, store[i].y);
-}*/
-
-/*void displayDist(float* distArry, int n) {
-    for (int i = 0; i < n; i++)
-        printf("\n\nDistance from store %d to store %d: %f\n\n", i, i + 1, distArry[i]);
-}*/
-
-/*void displayPerms(int* permArry, int n) {
-    for (int i = 0; i < n; i++)
-        printf("%d ", permArry[i]);
-    printf("\n");
-}*/
 
 void findPerms(int* perm, int* used, int k, int n, StoreData* store, float* testDistance, int* bestPerm) {
     if (k == n) {
@@ -68,15 +49,6 @@ void findPerms(int* perm, int* used, int k, int n, StoreData* store, float* test
         }
     }
 }
-
-/*void calcDistances(StoreData* store, int n, int combos) {
-    // testDistance = sqrt((store[i+1].x - store[i].x)^2 + (store[i + 1].y - store[i].y)^2)
-    float* distArry = calloc(sizeof(float), combos);
-    for (int i = 0; i < n; i++)
-        for (int j = 1; j < n; j++)
-            distArry[i] = sqrt(pow(store[j].x - store[i].x, 2) + pow(store[j].y - store[i].y, 2));
-
-}*/
 
 void calcDistancesPerm(StoreData* store, int* perm, int n, float curDistance) {
     float storeDistance = 0;
@@ -112,8 +84,6 @@ int main(void) {
 
         }
 
-        //displayStores(store, nStores); // currently just used for debugging to ensure stores are vreated properly
-
 
         int* perm = calloc(sizeof(int), nStores);
         int* used = calloc(sizeof(int), nStores);
@@ -122,8 +92,7 @@ int main(void) {
         *testDistance = MAX_DISTANCE;
         findPerms(perm, used, 0, nStores, store, testDistance, bestPerm);
         calcDistancesPerm(store, bestPerm, nStores, *testDistance);
-        
-        //calcDistances(store, nStores, combinations); // to calculate the testDistance between each store and the other stores
+
 
     }
 
