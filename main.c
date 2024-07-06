@@ -23,7 +23,6 @@ void displayPerms(int*, int);
 void findPerms(int*, int*, int, int, StoreData*, float*);
 void calcDistances(StoreData*, int, int);
 void calcDistancesPerm(StoreData*, int*, int, float*);
-int factorial(int);
 
 
 
@@ -53,7 +52,7 @@ void findPerms(int* perm, int* used, int k, int n, StoreData* store, float* test
         }
 
         if(curDistance < *testDistance){
-        displayPerms(perm, n);
+        //displayPerms(perm, n);
         calcDistancesPerm(store, perm, n, testDistance);
         }
         
@@ -92,16 +91,15 @@ void calcDistancesPerm(StoreData* store, int* perm, int n,float* testDistance){
     }
 
     if(curDistance < *testDistance){
-    printf("%0.3f\n", curDistance);
+    printf("\n%0.3f", curDistance);
     for(int i = 0; i < n; i += 2){
         storeDistance = sqrt(pow(store[perm[i+1]].x - store[perm[i]].x, 2) + pow(store[perm[i+1]].y - store[perm[i]].y, 2));
 
-        printf("(%s, %s, %0.3f)\n", store[perm[i]].storeName, store[perm[i+1]].storeName, storeDistance);
+        printf("\n(%s, %s, %0.3f)", store[perm[i]].storeName, store[perm[i+1]].storeName, storeDistance);
         *testDistance = curDistance;
     }
     }
 
-    printf("\n");
 }
 
 
