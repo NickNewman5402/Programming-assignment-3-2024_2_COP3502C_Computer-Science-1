@@ -12,7 +12,7 @@ Dr. Tanvir Ahmed
 
 #define MAX_DISTANCE 28284.27
 
-typedef struct StoreData {
+typedef struct {
     char storeName[20];
     int x, y;
 }StoreData;
@@ -31,7 +31,7 @@ void findPerms(int* perm, int* used, int k, int n, StoreData* store, float* test
     if (curDistance >= *testDistance) {
         return; // Prune branches that exceed the current best distance
     }// finish GPT add */
-    
+
     if (k == n) {
         /*float curDistance = 0;
         for (int i = 0; i < n; i += 2) {
@@ -56,7 +56,8 @@ void findPerms(int* perm, int* used, int k, int n, StoreData* store, float* test
             if (k % 2 == 1) {
                 float additionalDistance = calcDistance(store, perm[k], perm[k - 1], memo);
                 findPerms(perm, used, k + 1, n, store, testDistance, bestPerm, curDistance + additionalDistance, memo);
-            } else {
+            }
+            else {
                 findPerms(perm, used, k + 1, n, store, testDistance, bestPerm, curDistance, memo);
             }//*/ finish GPT add
             used[i] = 0;
@@ -91,8 +92,6 @@ void calcDistancesPerm(StoreData* store, int* perm, int n, float curDistance) {
 int main(void) {
 
     int nRoads, nStores, testCases, combinations;
-    float* testDistance = malloc(sizeof(float));
-
 
     scanf("%d", &testCases);
 
@@ -123,10 +122,10 @@ int main(void) {
         int* perm = calloc(sizeof(int), nStores);
         int* used = calloc(sizeof(int), nStores);
         int* bestPerm = calloc(sizeof(int), nStores);
-        
-        *testDistance = MAX_DISTANCE;
-        findPerms(perm, used, 0, nStores, store, testDistance, bestPerm, 0.0, memo);
-        calcDistancesPerm(store, bestPerm, nStores, *testDistance);
+        float testDistance = MAX_DISTANCE;
+
+        findPerms(perm, used, 0, nStores, store, &testDistance, bestPerm, 0.0, memo);
+        calcDistancesPerm(store, bestPerm, nStores, testDistance);
 
         //added by GPT
         // Free memoization table
@@ -141,9 +140,6 @@ int main(void) {
         free(used);
         free(bestPerm);
     }
-
-    free(testDistance);
-
 
     return 0;
 }
